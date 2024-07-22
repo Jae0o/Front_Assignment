@@ -6,7 +6,7 @@ module.exports = {
   mode: "development",
   entry: "./src/index.tsx",
   output: {
-    filename: "main.js",
+    filename: "index.js",
     path: path.resolve(__dirname, "dist"),
   },
 
@@ -26,13 +26,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.html$/,
-        loader: "html-loader",
-        options: {
-          minimize: true,
-        },
-      },
-      {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
@@ -48,7 +41,7 @@ module.exports = {
 
   plugins: [
     new htmlWebpackPlugin({
-      template: "index.html",
+      template: "./index.html",
     }),
     new forkTsCheckerWebpackPlugin(),
   ],
