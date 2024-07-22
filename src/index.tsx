@@ -1,7 +1,6 @@
-import { createRoot } from "react-dom/client";
+import React from "react";
+
+import ReactDOM from "react-dom";
 import App from "./App";
 
-const container = document.getElementById("root") as HTMLElement;
-const root = createRoot(container);
-
-root.render(<App />);
+ReactDOM.render(<App />, document.getElementById("root"));
