@@ -9,6 +9,10 @@
     "react-beautiful-dnd": "13.1.1",
     "react-dom": "18.2.0"
   },
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "rm -rf dist && webpack --config webpack.config.js --mode production"
+  },
   "devDependencies": {
     "@babel/core": "^7.24.9",
     "@babel/preset-env": "^7.24.8",

@@ -5,17 +5,16 @@ module.exports = {
   mode: "development",
   entry: "./src/index.jsx",
   output: {
+    filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
 
   module: {
     rules: [
       {
-        test: /\.jsx?/,
-        loader: "babel-loader",
-        options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
-        },
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
       },
       {
         test: /\.html$/,
@@ -24,7 +23,15 @@ module.exports = {
           minimize: true,
         },
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
+  },
+  resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    extensions: [".js", ".jsx"],
   },
 
   plugins: [
@@ -32,4 +39,15 @@ module.exports = {
       template: "index.html",
     }),
   ],
+
+  devServer: {
+    client: {
+      overlay: true,
+      progress: true,
+    },
+    compress: true,
+    hot: true,
+    open: true,
+    port: 3100,
+  },
 };
