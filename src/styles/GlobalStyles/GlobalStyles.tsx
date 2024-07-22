@@ -6,7 +6,9 @@ const GlobalStyles = createGlobalStyle`
     width: 100dvw;
     height: 100dvh;
     font-size: 62.5%;
-    background-color: red;
+
+    background-color: ${({ theme }) => theme.colors.background};
+    
   }
 
 
