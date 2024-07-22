@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from "react";
-import ReactDOM from "react-dom";
+import { useState, useCallback } from "react";
+
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const App = () => {
+const TaskBoard = () => {
   const getItems = (count) =>
     Array.from({ length: count }, (v, k) => k).map((k) => ({
       id: `item-${k}`,
@@ -20,6 +20,7 @@ const App = () => {
 
   const onDragEnd = useCallback(
     (result) => {
+      console.log(result);
       if (!result.destination) {
         return;
       }
@@ -69,7 +70,7 @@ const App = () => {
   );
 };
 
-export default App;
+export default TaskBoard;
 
 const GRID = 8;
 
