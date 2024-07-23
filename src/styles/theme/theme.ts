@@ -5,12 +5,22 @@ export const colors = {
 
   black_900: "#000000",
 
+  gray: "#e6e9ed",
+  dark_gray: "#ccd1d9",
+
   background: "#FFFFFF",
 
   placeholder_300: "#DDDDE3",
 
   text_primary: "",
   text_secondary: "",
+};
+
+export const pointColors = {
+  NO_STATUS: "#e6e9ed",
+  TODO: "#0073cf",
+  IN_PROGRESS: "#ffce54",
+  DONE: "#a0d468",
 };
 
 export const fontWeight = {
@@ -47,6 +57,7 @@ export type FontWeight = typeof fontWeight;
 export type BorderRadius = typeof borderRadius;
 export type ScrollBarNone = typeof scrollBarNone;
 export type Padding = typeof padding;
+export type PointColors = typeof pointColors;
 
 const theme: DefaultTheme = {
   colors,
@@ -54,6 +65,7 @@ const theme: DefaultTheme = {
   scrollBarNone,
   borderRadius,
   padding,
+  pointColors,
 };
 
 export default theme;
