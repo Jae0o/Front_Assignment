@@ -1,14 +1,17 @@
+import { TaskItemType, TaskStatusType } from "@/types";
 import * as S from "./TaskList.styles";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useState } from "react";
 
 interface TaskListProps {
-  items: { id: string; content: string }[];
+  items: TaskItemType[];
+  status: TaskStatusType;
 }
 
-const TaskList = ({ items }: TaskListProps) => {
+const TaskList = ({ items, status }: TaskListProps) => {
   return (
-    <Droppable droppableId="droppable">
+    <Droppable droppableId={status}>
       {(provided, snapshot) => (
         <S.TaskListContainer
           {...provided.droppableProps}

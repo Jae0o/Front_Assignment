@@ -1,18 +1,32 @@
 import { useCallback, useState } from "react";
 
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+
 import { TaskList } from "./components";
-import { DragDropContext } from "react-beautiful-dnd";
+import { TaskItemType, TaskStatusType } from "@/types";
+
+export const TASK_STATUS: TaskStatusType[] = [
+  "No Status",
+  "ToDo",
+  "In Progress",
+  "Done",
+];
 
 const TaskBoard = () => {
-  const getItems = (count) =>
+  const getItems = (count: number): TaskItemType[] =>
     Array.from({ length: count }, (v, k) => k).map((k) => ({
       id: `item-${k}`,
       content: `item ${k}`,
+      status: "No Status",
     }));
 
-  const [items, setItems] = useState(getItems(10));
+  const [items, setItems] = useState<TaskItemType[]>(getItems(10));
 
-  const reorder = (list, startIndex, endIndex) => {
+  const reorder = (
+    list: TaskItemType[],
+    startIndex: number,
+    endIndex: number
+  ) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -20,10 +34,11 @@ const TaskBoard = () => {
   };
 
   const onDragEnd = useCallback(
-    (result) => {
+    (result: DropResult) => {
       if (!result.destination) {
         return;
       }
+      console.log(result);
 
       const newItems = reorder(
         items,
@@ -38,7 +53,13 @@ const TaskBoard = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <TaskList items={items} />
+      {TASK_STATUS.map((status) => (
+        <TaskList
+          key={status}
+          items={items.filter((item) => status === item.status)}
+          status={status}
+        />
+      ))}
     </DragDropContext>
   );
 };
