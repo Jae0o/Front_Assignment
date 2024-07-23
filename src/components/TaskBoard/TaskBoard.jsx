@@ -1,6 +1,7 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { TaskList } from "./components";
+import { DragDropContext } from "react-beautiful-dnd";
 
 const TaskBoard = () => {
   const getItems = (count) =>
@@ -20,7 +21,6 @@ const TaskBoard = () => {
 
   const onDragEnd = useCallback(
     (result) => {
-      console.log(result);
       if (!result.destination) {
         return;
       }
@@ -38,52 +38,9 @@ const TaskBoard = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            {items.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
-                  >
-                    {item.content}
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <TaskList items={items} />
     </DragDropContext>
   );
 };
 
 export default TaskBoard;
-
-const GRID = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  padding: GRID * 2,
-  margin: `0 0 ${GRID}px 0`,
-  background: isDragging ? "lightgreen" : "grey",
-  ...draggableStyle,
-});
-
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: GRID,
-  width: 250,
-});
