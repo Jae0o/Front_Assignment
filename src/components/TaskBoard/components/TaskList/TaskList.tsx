@@ -1,8 +1,9 @@
-import { TaskItemType, TaskStatusType } from "@/types";
 import * as S from "./TaskList.styles";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { useState } from "react";
+
+import { TaskItemType, TaskStatusType } from "@/types";
+import { STATUS_NAMES } from "../../TaskBoard.constants";
 
 interface TaskListProps {
   items: TaskItemType[];
@@ -13,31 +14,35 @@ const TaskList = ({ items, status }: TaskListProps) => {
   return (
     <Droppable droppableId={status}>
       {(provided, snapshot) => (
-        <S.TaskListContainer
-          {...provided.droppableProps}
-          ref={provided.innerRef}
+        <S.TaskListLayout
           $isDraggingOver={snapshot.isDraggingOver}
+          $status={status}
         >
-          <S.TaskListTitle>{status}</S.TaskListTitle>
-          {items.map((item, index) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
-              {(provided, snapshot) => (
-                <S.TaskItem
-                  ref={provided.innerRef}
-                  $isDragging={snapshot.isDragging}
-                  style={{
-                    ...provided.draggableProps.style,
-                  }}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                >
-                  {item.content}
-                </S.TaskItem>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </S.TaskListContainer>
+          <S.TaskListTitle>{STATUS_NAMES[status]}</S.TaskListTitle>
+          <S.TaskListContainer
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {items.map((item, index) => (
+              <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(itemProvided, snapshot) => (
+                  <S.TaskItem
+                    ref={itemProvided.innerRef}
+                    $isDragging={snapshot.isDragging}
+                    style={{
+                      ...itemProvided.draggableProps.style,
+                    }}
+                    {...itemProvided.draggableProps}
+                    {...itemProvided.dragHandleProps}
+                  >
+                    {item.content}
+                  </S.TaskItem>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </S.TaskListContainer>
+        </S.TaskListLayout>
       )}
     </Droppable>
   );

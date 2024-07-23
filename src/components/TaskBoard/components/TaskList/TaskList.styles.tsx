@@ -1,18 +1,33 @@
+import { TaskStatusType } from "@/types";
 import styled from "styled-components";
 
-export const TaskListContainer = styled.ul<{ $isDraggingOver: boolean }>`
+export const TaskListLayout = styled.li<{
+  $isDraggingOver: boolean;
+  $status: TaskStatusType;
+}>`
   width: 20rem;
   min-width: 20rem;
   min-height: 50rem;
+
+  display: flex;
+  flex-direction: column;
+
   padding: ${({ theme }) => theme.padding.grid}rem;
+  background-color: ${({ $isDraggingOver, theme, $status }) =>
+    $isDraggingOver ? theme.pointColors[$status] : theme.colors.gray};
+
+  border-radius: ${({ theme }) => theme.borderRadius.radius12};
+
+  user-select: none;
+`;
+
+export const TaskListContainer = styled.ul`
+  width: 100%;
+  flex-grow: 1;
 
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.padding.grid}rem;
-
-  background-color: ${({ $isDraggingOver }) =>
-    $isDraggingOver ? "lightblue" : "lightgrey"};
-  border-radius: ${({ theme }) => theme.borderRadius.radius12};
 `;
 
 export const TaskListTitle = styled.h1`
@@ -38,8 +53,6 @@ export const TaskItem = styled.li<{
 
   background-color: white;
 
-  border: 0.2rem solid ${({ $isDragging }) => ($isDragging ? "red" : "gray")};
+  border: 0.2rem solid gray;
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
-
-  user-select: none;
 `;

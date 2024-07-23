@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TaskBoardLayout = styled.article`
+export const TaskBoardLayout = styled.ul`
   width: 100%;
   height: 100%;
 
