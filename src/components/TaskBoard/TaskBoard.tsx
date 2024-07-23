@@ -1,5 +1,7 @@
 import { useCallback, useState } from "react";
 
+import * as S from "./TaskBoard.styles";
+
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
@@ -52,15 +54,17 @@ const TaskBoard = () => {
   );
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {TASK_STATUS.map((status) => (
-        <TaskList
-          key={status}
-          items={items.filter((item) => status === item.status)}
-          status={status}
-        />
-      ))}
-    </DragDropContext>
+    <S.TaskBoardLayout>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {TASK_STATUS.map((status) => (
+          <TaskList
+            key={status}
+            items={items.filter((item) => status === item.status)}
+            status={status}
+          />
+        ))}
+      </DragDropContext>
+    </S.TaskBoardLayout>
   );
 };
 

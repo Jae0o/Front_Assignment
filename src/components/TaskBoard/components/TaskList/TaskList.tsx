@@ -18,6 +18,7 @@ const TaskList = ({ items, status }: TaskListProps) => {
           ref={provided.innerRef}
           $isDraggingOver={snapshot.isDraggingOver}
         >
+          <S.TaskListTitle>{status}</S.TaskListTitle>
           {items.map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>
               {(provided, snapshot) => (
