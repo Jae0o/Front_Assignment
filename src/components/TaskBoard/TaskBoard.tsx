@@ -6,6 +6,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
 import { TaskItemType, TaskItemListType, TaskStatusType } from "@/types";
+import useDragEnd from "./hooks/useDragEnd/useDragEnd";
 
 export const TASK_STATUS: TaskStatusType[] = [
   "NO_STATUS",
@@ -29,63 +30,7 @@ const TaskBoard = () => {
     DONE: [],
   });
 
-  const reorder = ({
-    list,
-    sourceId,
-    destinationId,
-    startIndex,
-    endIndex,
-  }: {
-    list: TaskItemListType;
-    sourceId: TaskStatusType;
-    destinationId: TaskStatusType;
-    startIndex: number;
-    endIndex: number;
-  }) => {
-    const [removed] = list[sourceId].splice(startIndex, 1);
-    list[destinationId].splice(endIndex, 0, removed);
-  };
-
-  const getCheckedStatusType = (status: string): TaskStatusType | false => {
-    if (
-      status !== "NO_STATUS" &&
-      status !== "TODO" &&
-      status !== "IN_PROGRESS" &&
-      status !== "DONE"
-    ) {
-      return false;
-    }
-
-    return status;
-  };
-
-  const onDragEnd = useCallback(
-    ({ destination, source }: DropResult) => {
-      if (!destination) {
-        return;
-      }
-
-      const destinationId = getCheckedStatusType(destination.droppableId);
-      const sourceId = getCheckedStatusType(source.droppableId);
-
-      if (!destinationId || !sourceId) {
-        return;
-      }
-
-      const newItems: TaskItemListType = JSON.parse(JSON.stringify(items));
-
-      reorder({
-        list: newItems,
-        sourceId: sourceId,
-        destinationId: destinationId,
-        startIndex: source.index,
-        endIndex: destination.index,
-      });
-
-      setItems(newItems);
-    },
-    [items]
-  );
+  const onDragEnd = useDragEnd({ items, setItems });
 
   return (
     <S.TaskBoardLayout>
