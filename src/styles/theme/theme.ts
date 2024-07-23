@@ -38,16 +38,22 @@ export const scrollBarNone = css`
   }
 `;
 
+export const padding = {
+  grid: 0.8,
+};
+
 export type ColorsType = typeof colors;
 export type FontWeight = typeof fontWeight;
 export type BorderRadius = typeof borderRadius;
 export type ScrollBarNone = typeof scrollBarNone;
+export type Padding = typeof padding;
 
 const theme: DefaultTheme = {
   colors,
   fontWeight,
   scrollBarNone,
   borderRadius,
+  padding,
 };
 
 export default theme;

@@ -11,6 +11,16 @@ const GlobalStyles = createGlobalStyle`
     
   }
 
+  li {
+    list-style: none;
+  }
+
+  html, body, ul, li {
+    padding: 0;
+    margin: 0;
+
+    box-sizing: border-box;
+  }
 
 `;
 
