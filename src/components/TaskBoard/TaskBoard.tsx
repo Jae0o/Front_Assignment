@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import * as S from "./TaskBoard.styles";
 
-import { DragDropContext, DragStart } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
 import { TaskItemListType, TaskStatusType } from "@/types";
-import { useDragEnd, useDragUpdate, useOnClick } from "./hooks";
+import { useDragEnd, useDragStart, useDragUpdate, useOnClick } from "./hooks";
 import { getItems } from "./utils";
 
 export const TASK_STATUS: TaskStatusType[] = ["NO_STATUS", "TODO", "IN_PROGRESS", "DONE"];
@@ -21,6 +21,14 @@ const TaskBoard = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+
+  const onDragStart = useDragStart({
+    selectedStatus,
+    selectedTasks,
+    setIsDragging,
+    setSelectedStatus,
+    setSelectedTasks,
+  });
 
   const { isDisablePlace, onDragUpdate } = useDragUpdate();
 
@@ -38,21 +46,6 @@ const TaskBoard = () => {
     setSelectedTasks,
     isDragging,
   });
-
-  const onDragStart = ({ source, draggableId }: DragStart) => {
-    setIsDragging(true);
-
-    if (selectedStatus !== source.droppableId) {
-      setSelectedTasks([]);
-      setSelectedStatus(source.droppableId);
-      return;
-    }
-
-    if (!selectedTasks.includes(draggableId)) {
-      setSelectedTasks((prevTasks) => [...prevTasks, draggableId]);
-      return;
-    }
-  };
 
   return (
     <S.TaskBoardLayout>
