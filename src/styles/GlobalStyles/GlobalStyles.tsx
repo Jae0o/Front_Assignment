@@ -15,13 +15,17 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  html, body, ul, li {
+  html, body, ul, li, button {
     padding: 0;
     margin: 0;
 
     box-sizing: border-box;
   }
 
+  button {
+    border : none;
+    background-color: transparent;
+  }
 `;
 
 export default GlobalStyles;

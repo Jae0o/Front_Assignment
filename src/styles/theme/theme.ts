@@ -5,6 +5,8 @@ export const colors = {
 
   black_900: "#000000",
 
+  yellow_500: "#ffce54",
+
   gray: "#e6e9ed",
   dark_gray: "#ccd1d9",
 
@@ -52,12 +54,17 @@ export const padding = {
   grid: 0.8,
 };
 
+export const boxShadow = {
+  basic: "0 0 1.6rem 0.4rem rgba(0, 0, 0, 0.1)",
+};
+
 export type ColorsType = typeof colors;
 export type FontWeight = typeof fontWeight;
 export type BorderRadius = typeof borderRadius;
 export type ScrollBarNone = typeof scrollBarNone;
 export type Padding = typeof padding;
 export type PointColors = typeof pointColors;
+export type BoxShadow = typeof boxShadow;
 
 const theme: DefaultTheme = {
   colors,
@@ -66,6 +73,7 @@ const theme: DefaultTheme = {
   borderRadius,
   padding,
   pointColors,
+  boxShadow,
 };
 
 export default theme;
