@@ -1,5 +1,6 @@
 import { createContext, useCallback, useState } from "react";
 import * as S from "./ToastProvider.styles";
+import { ToastItem } from "./components";
 
 interface ToastProviderProps {
   children: React.ReactNode;
@@ -37,7 +38,15 @@ const ToastProvider = ({ children }: ToastProviderProps) => {
   return (
     <toastContext.Provider value={{ createToast }}>
       {children}
-      <S.ToastContainer>{toastList.map(({ message }) => message)}</S.ToastContainer>
+      <S.ToastContainer>
+        {toastList.map(({ message, id }) => (
+          <ToastItem
+            key={id}
+            message={message}
+            onClick={() => removeToast(id)}
+          />
+        ))}
+      </S.ToastContainer>
     </toastContext.Provider>
   );
 };
