@@ -3,7 +3,7 @@ import * as S from "./TaskList.styles";
 
 import { Droppable } from "react-beautiful-dnd";
 
-import { TaskItemType, TaskStatusType } from "@/types";
+import { OnClickItem, TaskItemType, TaskStatusType } from "@/types";
 import { STATUS_NAMES } from "../../TaskBoard.constants";
 import { taskMovingValidation } from "../../utils";
 import { TaskItem } from "./components";
@@ -16,7 +16,7 @@ interface TaskListProps {
   selectedStatus: string;
   isDisablePlace: boolean;
 
-  onClick: (params: { itemId: string; status: TaskStatusType }) => void;
+  onClick: OnClickItem;
 }
 
 const TaskList = ({

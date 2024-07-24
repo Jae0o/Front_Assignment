@@ -8,3 +8,9 @@ export interface TaskItemType {
 export type TaskItemListType = {
   [key in TaskStatusType]: TaskItemType[];
 };
+
+export type OnClickItem = (params: {
+  itemId: string;
+  status: TaskStatusType;
+  isSelected: boolean;
+}) => void;

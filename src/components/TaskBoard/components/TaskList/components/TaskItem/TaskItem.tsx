@@ -2,7 +2,7 @@ import * as S from "./TaskItem.styles";
 
 import { Draggable } from "react-beautiful-dnd";
 
-import { TaskItemType, TaskStatusType } from "@/types";
+import { OnClickItem, TaskItemType, TaskStatusType } from "@/types";
 import { useMemo } from "react";
 
 interface TaskItemProps {
@@ -11,7 +11,7 @@ interface TaskItemProps {
   item: TaskItemType;
   selectedTasks: string[];
   isDisablePlace: boolean;
-  onClick: (params: { itemId: string; status: TaskStatusType }) => void;
+  onClick: OnClickItem;
 }
 
 const TaskItem = ({
@@ -35,13 +35,13 @@ const TaskItem = ({
           {...itemProvided.dragHandleProps}
           ref={itemProvided.innerRef}
           className="task_item"
-          $isDragging={snapshot.isDragging}
-          $isSelected={isSelected}
-          $isDisablePlace={isDisablePlace}
-          onClick={() => onClick({ itemId: item.id, status })}
+          onClick={() => onClick({ itemId: item.id, status, isSelected })}
           style={{
             ...itemProvided.draggableProps.style,
           }}
+          $isDragging={snapshot.isDragging}
+          $isSelected={isSelected}
+          $isDisablePlace={isDisablePlace}
         >
           {item.content}
         </S.TaskItem>
