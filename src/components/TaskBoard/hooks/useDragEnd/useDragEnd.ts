@@ -1,7 +1,10 @@
-import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 import { Dispatch, SetStateAction, useCallback } from "react";
+
 import { DropResult } from "react-beautiful-dnd";
+
 import { taskMovingValidation } from "../../utils";
+import { useToast } from "@/hooks";
+import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 
 interface UseDragEndProps {
   items: TaskItemListType;
@@ -20,7 +23,8 @@ const useDragEnd = ({
   setIsDragging,
   setSelectedTasks,
 }: UseDragEndProps) => {
-  // TODO : 추후 별도 유틸로 분리 고려하기
+  const createToast = useToast();
+
   const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback((status) => {
     if (
       status !== "NO_STATUS" &&
@@ -105,8 +109,8 @@ const useDragEnd = ({
       }
 
       if (taskMovingValidation({ start: sourceId, end: destinationId })) {
-        // TODO : 추후 알림 추가
-        console.log("이동할 수 없습니다.");
+        createToast("1번에서 3번으로 이동은 불가능합니다.");
+        setSelectedTasks([]);
         return;
       }
 
