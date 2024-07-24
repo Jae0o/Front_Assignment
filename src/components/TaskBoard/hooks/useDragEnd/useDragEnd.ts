@@ -1,6 +1,7 @@
 import { TaskItemListType, TaskStatusType } from "@/types";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { DropResult } from "react-beautiful-dnd";
+import { taskMovingValidation } from "../../utils";
 
 interface UseDragEndProps {
   items: TaskItemListType;
@@ -37,6 +38,17 @@ const useDragEnd = ({ items, setItems }: UseDragEndProps) => {
       const sourceId = getCheckedStatusType(source.droppableId);
 
       if (!destinationId || !sourceId) {
+        return;
+      }
+
+      if (
+        taskMovingValidation({
+          start: sourceId,
+          end: destinationId,
+        })
+      ) {
+        // TODO : 추후 알림 추가
+        console.log("이동할 수 없습니다.");
         return;
       }
 
