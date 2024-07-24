@@ -51,6 +51,7 @@ export const TaskListTitle = styled.h1`
 
 export const TaskItem = styled.li<{
   $isDragging: boolean;
+  $isSelected: boolean;
 }>`
   width: 100%;
   height: 4rem;
@@ -66,4 +67,5 @@ export const TaskItem = styled.li<{
 
   border: 0.2rem solid gray;
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
+  background-color: ${({ $isSelected }) => $isSelected && "red"};
 `;

@@ -9,14 +9,24 @@ import { taskMovingValidation } from "../../utils";
 
 interface TaskListProps {
   items: TaskItemType[];
+  selectedTasks: TaskItemType[];
+
   status: TaskStatusType;
-  draggingId: string;
+  selectedStatus: string;
+
+  onClick: (params: { item: TaskItemType; status: TaskStatusType }) => void;
 }
 
-const TaskList = ({ items, status, draggingId }: TaskListProps) => {
+const TaskList = ({
+  items,
+  selectedTasks,
+  status,
+  selectedStatus,
+  onClick,
+}: TaskListProps) => {
   const isDropDisabled = useMemo(
-    () => taskMovingValidation({ start: draggingId, end: status }),
-    [status, draggingId]
+    () => taskMovingValidation({ start: selectedStatus, end: status }),
+    [status, selectedStatus, taskMovingValidation]
   );
 
   return (
@@ -36,13 +46,18 @@ const TaskList = ({ items, status, draggingId }: TaskListProps) => {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(itemProvided, snapshot) => (
                   <S.TaskItem
+                    {...itemProvided.draggableProps}
+                    {...itemProvided.dragHandleProps}
                     ref={itemProvided.innerRef}
+                    className="task_item"
                     $isDragging={snapshot.isDragging}
+                    $isSelected={
+                      !!selectedTasks.find(({ id }) => id === item.id)
+                    }
+                    onClick={() => onClick({ item, status })}
                     style={{
                       ...itemProvided.draggableProps.style,
                     }}
-                    {...itemProvided.draggableProps}
-                    {...itemProvided.dragHandleProps}
                   >
                     {item.content}
                   </S.TaskItem>

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import * as S from "./TaskBoard.styles";
 
 import { DragDropContext, DragStart } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
-import { TaskItemListType, TaskStatusType } from "@/types";
+import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 import { useDragEnd } from "./hooks";
 import { getItems } from "./utils";
 
@@ -23,23 +23,69 @@ const TaskBoard = () => {
     IN_PROGRESS: [],
     DONE: [],
   });
-  const [draggingId, setDraggingId] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedTasks, setSelectedTasks] = useState<TaskItemType[]>([]);
 
   const onDragEnd = useDragEnd({ items, setItems });
 
-  const onDragStart = (start: DragStart) => {
-    setDraggingId(start.source.droppableId);
+  const onDragStart = ({ source }: DragStart) => {
+    if (selectedStatus === source.droppableId) {
+      return;
+    }
+
+    setSelectedTasks([]);
+    setSelectedStatus(source.droppableId);
   };
+
+  const onClick = ({
+    item,
+    status,
+  }: {
+    item: TaskItemType;
+    status: TaskStatusType;
+  }) => {
+    if (status !== selectedStatus) {
+      setSelectedStatus(status);
+      setSelectedTasks([item]);
+      return;
+    }
+
+    setSelectedStatus(status);
+    setSelectedTasks((prevTasks) => [...prevTasks, item]);
+  };
+
+  useEffect(() => {
+    const handleAwayClick = ({ target }: MouseEvent) => {
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      if (target.className.includes("task_item")) {
+        return;
+      }
+
+      setSelectedTasks([]);
+      setSelectedStatus("");
+    };
+
+    window.addEventListener("click", handleAwayClick);
+
+    return () => {
+      window.removeEventListener("click", handleAwayClick);
+    };
+  });
 
   return (
     <S.TaskBoardLayout>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         {TASK_STATUS.map((status) => (
           <TaskList
-            key={status}
             items={items[status]}
+            selectedTasks={selectedTasks}
+            key={status}
             status={status}
-            draggingId={draggingId}
+            selectedStatus={selectedStatus}
+            onClick={onClick}
           />
         ))}
       </DragDropContext>
