@@ -34,6 +34,7 @@ const TaskBoard = () => {
     setItems,
     selectedTasks,
     setIsDragging,
+    setSelectedTasks,
   });
 
   const onClick = useOnClick({

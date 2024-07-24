@@ -8,6 +8,7 @@ interface UseDragEndProps {
   selectedTasks: string[];
   setItems: Dispatch<SetStateAction<TaskItemListType>>;
   setIsDragging: Dispatch<SetStateAction<boolean>>;
+  setSelectedTasks: Dispatch<SetStateAction<string[]>>;
 }
 
 type GetCheckedStatusTypeFunc = (status: string) => TaskStatusType | false;
@@ -17,6 +18,7 @@ const useDragEnd = ({
   setItems,
   selectedTasks,
   setIsDragging,
+  setSelectedTasks,
 }: UseDragEndProps) => {
   // TODO : 추후 별도 유틸로 분리 고려하기
   const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback(
@@ -85,6 +87,7 @@ const useDragEnd = ({
         newItems[destinationId].splice(destination.index, 0, ...removeItems);
       }
 
+      setSelectedTasks([]);
       setItems(newItems);
     },
     [items, selectedTasks]
