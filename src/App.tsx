@@ -1,13 +1,15 @@
 import { ThemeProvider } from "styled-components";
 
 import { GlobalStyles, theme } from "@/styles";
-import { TaskBoard } from "@/components";
+import { TaskBoard, ToastProvider } from "@/components";
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <TaskBoard />
+      <ToastProvider>
+        <TaskBoard />
+      </ToastProvider>
     </ThemeProvider>
   );
 };
