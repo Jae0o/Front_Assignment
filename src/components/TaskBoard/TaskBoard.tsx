@@ -1,12 +1,12 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import * as S from "./TaskBoard.styles";
 
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, DragStart } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
 import { TaskItemType, TaskItemListType, TaskStatusType } from "@/types";
-import useDragEnd from "./hooks/useDragEnd/useDragEnd";
+import { useDragEnd } from "./hooks";
 
 export const TASK_STATUS: TaskStatusType[] = [
   "NO_STATUS",
@@ -30,13 +30,24 @@ const TaskBoard = () => {
     DONE: [],
   });
 
+  const [draggingId, setDraggingId] = useState("");
+
   const onDragEnd = useDragEnd({ items, setItems });
+
+  const onDragStart = (start: DragStart) => {
+    setDraggingId(start.source.droppableId);
+  };
 
   return (
     <S.TaskBoardLayout>
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         {TASK_STATUS.map((status) => (
-          <TaskList key={status} items={items[status]} status={status} />
+          <TaskList
+            key={status}
+            items={items[status]}
+            status={status}
+            draggingId={draggingId}
+          />
         ))}
       </DragDropContext>
     </S.TaskBoardLayout>

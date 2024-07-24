@@ -1,21 +1,30 @@
+import { useMemo } from "react";
 import * as S from "./TaskList.styles";
 
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { TaskItemType, TaskStatusType } from "@/types";
 import { STATUS_NAMES } from "../../TaskBoard.constants";
+import { taskMovingValidation } from "../../utils";
 
 interface TaskListProps {
   items: TaskItemType[];
   status: TaskStatusType;
+  draggingId: string;
 }
 
-const TaskList = ({ items, status }: TaskListProps) => {
+const TaskList = ({ items, status, draggingId }: TaskListProps) => {
+  const isDropDisabled = useMemo(
+    () => taskMovingValidation({ start: draggingId, end: status }),
+    [status, draggingId]
+  );
+
   return (
     <Droppable droppableId={status}>
       {(provided, snapshot) => (
         <S.TaskListLayout
           $isDraggingOver={snapshot.isDraggingOver}
+          $isDropDisabled={isDropDisabled}
           $status={status}
         >
           <S.TaskListTitle>{STATUS_NAMES[status]}</S.TaskListTitle>
