@@ -24,23 +24,38 @@ const TaskBoard = () => {
     DONE: [],
   });
   const [selectedStatus, setSelectedStatus] = useState("");
-  const [selectedTasks, setSelectedTasks] = useState<TaskItemType[]>([]);
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
 
   const { isDisablePlace, onDragUpdate } = useDragUpdate();
-  const onDragEnd = useDragEnd({ items, setItems });
+
+  const onDragEnd = useDragEnd({
+    items,
+    setItems,
+    selectedTasks,
+    setIsDragging,
+  });
+
   const onClick = useOnClick({
     selectedStatus,
     setSelectedStatus,
     setSelectedTasks,
+    isDragging,
   });
 
-  const onDragStart = ({ source }: DragStart) => {
-    if (selectedStatus === source.droppableId) {
+  const onDragStart = ({ source, draggableId }: DragStart) => {
+    setIsDragging(true);
+
+    if (selectedStatus !== source.droppableId) {
+      setSelectedTasks([]);
+      setSelectedStatus(source.droppableId);
       return;
     }
 
-    setSelectedTasks([]);
-    setSelectedStatus(source.droppableId);
+    if (!selectedTasks.includes(draggableId)) {
+      setSelectedTasks((prevTasks) => [...prevTasks, draggableId]);
+      return;
+    }
   };
 
   return (

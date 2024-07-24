@@ -1,16 +1,23 @@
-import { TaskItemListType, TaskStatusType } from "@/types";
+import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { taskMovingValidation } from "../../utils";
 
 interface UseDragEndProps {
   items: TaskItemListType;
+  selectedTasks: string[];
   setItems: Dispatch<SetStateAction<TaskItemListType>>;
+  setIsDragging: Dispatch<SetStateAction<boolean>>;
 }
 
 type GetCheckedStatusTypeFunc = (status: string) => TaskStatusType | false;
 
-const useDragEnd = ({ items, setItems }: UseDragEndProps) => {
+const useDragEnd = ({
+  items,
+  setItems,
+  selectedTasks,
+  setIsDragging,
+}: UseDragEndProps) => {
   // TODO : 추후 별도 유틸로 분리 고려하기
   const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback(
     (status) => {
@@ -30,6 +37,8 @@ const useDragEnd = ({ items, setItems }: UseDragEndProps) => {
 
   const onDragEnd = useCallback(
     ({ destination, source }: DropResult) => {
+      setIsDragging(false);
+
       if (!destination) {
         return;
       }
@@ -54,12 +63,31 @@ const useDragEnd = ({ items, setItems }: UseDragEndProps) => {
 
       const newItems: TaskItemListType = JSON.parse(JSON.stringify(items));
 
-      const [removed] = newItems[sourceId].splice(source.index, 1);
-      newItems[destinationId].splice(destination.index, 0, removed);
+      if (selectedTasks.length === 0) {
+        const [removed] = newItems[sourceId].splice(source.index, 1);
+        newItems[destinationId].splice(destination.index, 0, removed);
+      }
+
+      if (selectedTasks.length > 0) {
+        const removeItems: TaskItemType[] = [];
+        const filteredItems: TaskItemType[] = [];
+
+        newItems[sourceId].forEach((item) => {
+          if (selectedTasks.includes(item.id)) {
+            removeItems.push(item);
+            return;
+          }
+
+          filteredItems.push(item);
+        });
+
+        newItems[sourceId] = filteredItems;
+        newItems[destinationId].splice(destination.index, 0, ...removeItems);
+      }
 
       setItems(newItems);
     },
-    [items]
+    [items, selectedTasks]
   );
 
   return onDragEnd;

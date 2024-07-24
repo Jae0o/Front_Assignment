@@ -9,9 +9,9 @@ interface TaskItemProps {
   index: number;
   status: TaskStatusType;
   item: TaskItemType;
-  selectedTasks: TaskItemType[];
+  selectedTasks: string[];
   isDisablePlace: boolean;
-  onClick: (params: { item: TaskItemType; status: TaskStatusType }) => void;
+  onClick: (params: { itemId: string; status: TaskStatusType }) => void;
 }
 
 const TaskItem = ({
@@ -23,9 +23,10 @@ const TaskItem = ({
   onClick,
 }: TaskItemProps) => {
   const isSelected = useMemo(
-    () => !!selectedTasks.find(({ id }) => id === item.id),
+    () => !!selectedTasks.find((id) => id === item.id),
     [item.id, selectedTasks]
   );
+
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(itemProvided, snapshot) => (
@@ -37,7 +38,7 @@ const TaskItem = ({
           $isDragging={snapshot.isDragging}
           $isSelected={isSelected}
           $isDisablePlace={isDisablePlace}
-          onClick={() => onClick({ item, status })}
+          onClick={() => onClick({ itemId: item.id, status })}
           style={{
             ...itemProvided.draggableProps.style,
           }}

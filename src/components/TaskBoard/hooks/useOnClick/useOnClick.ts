@@ -3,31 +3,37 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface UseOnClickProps {
   setSelectedStatus: Dispatch<SetStateAction<string>>;
-  setSelectedTasks: Dispatch<SetStateAction<TaskItemType[]>>;
+  setSelectedTasks: Dispatch<SetStateAction<string[]>>;
   selectedStatus: string;
+  isDragging: boolean;
 }
 
 const useOnClick = ({
   setSelectedStatus,
   setSelectedTasks,
   selectedStatus,
+  isDragging,
 }: UseOnClickProps) => {
   const onClick = useCallback(
-    ({ item, status }: { item: TaskItemType; status: TaskStatusType }) => {
+    ({ itemId, status }: { itemId: string; status: TaskStatusType }) => {
       if (status !== selectedStatus) {
         setSelectedStatus(status);
-        setSelectedTasks([item]);
+        setSelectedTasks([itemId]);
         return;
       }
 
       setSelectedStatus(status);
-      setSelectedTasks((prevTasks) => [...prevTasks, item]);
+      setSelectedTasks((prevTasks) => [...prevTasks, itemId]);
     },
     [setSelectedStatus, setSelectedTasks, selectedStatus]
   );
 
   useEffect(() => {
     const handleAwayClick = ({ target }: MouseEvent) => {
+      if (isDragging) {
+        return;
+      }
+
       if (!(target instanceof HTMLElement)) {
         return;
       }

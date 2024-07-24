@@ -10,13 +10,13 @@ import { TaskItem } from "./components";
 
 interface TaskListProps {
   items: TaskItemType[];
-  selectedTasks: TaskItemType[];
+  selectedTasks: string[];
 
   status: TaskStatusType;
   selectedStatus: string;
   isDisablePlace: boolean;
 
-  onClick: (params: { item: TaskItemType; status: TaskStatusType }) => void;
+  onClick: (params: { itemId: string; status: TaskStatusType }) => void;
 }
 
 const TaskList = ({
