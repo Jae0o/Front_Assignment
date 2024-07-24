@@ -6,6 +6,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { TaskItemType, TaskStatusType } from "@/types";
 import { STATUS_NAMES } from "../../TaskBoard.constants";
 import { taskMovingValidation } from "../../utils";
+import { TaskItem } from "./components";
 
 interface TaskListProps {
   items: TaskItemType[];
@@ -43,26 +44,14 @@ const TaskList = ({
             ref={provided.innerRef}
           >
             {items.map((item, index) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
-                {(itemProvided, snapshot) => (
-                  <S.TaskItem
-                    {...itemProvided.draggableProps}
-                    {...itemProvided.dragHandleProps}
-                    ref={itemProvided.innerRef}
-                    className="task_item"
-                    $isDragging={snapshot.isDragging}
-                    $isSelected={
-                      !!selectedTasks.find(({ id }) => id === item.id)
-                    }
-                    onClick={() => onClick({ item, status })}
-                    style={{
-                      ...itemProvided.draggableProps.style,
-                    }}
-                  >
-                    {item.content}
-                  </S.TaskItem>
-                )}
-              </Draggable>
+              <TaskItem
+                key={item.id}
+                index={index}
+                item={item}
+                status={status}
+                selectedTasks={selectedTasks}
+                onClick={onClick}
+              />
             ))}
             {provided.placeholder}
           </S.TaskListContainer>
