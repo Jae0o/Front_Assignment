@@ -32,7 +32,7 @@ const useOnClick = ({
       setSelectedStatus(status);
       setSelectedTasks((prevTasks) => [...prevTasks, itemId]);
     },
-    [setSelectedStatus, setSelectedTasks, selectedStatus]
+    [selectedStatus]
   );
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const useOnClick = ({
     return () => {
       window.removeEventListener("click", handleAwayClick);
     };
-  });
+  }, [isDragging]);
 
   return onClick;
 };

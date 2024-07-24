@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { DragUpdate } from "react-beautiful-dnd";
 
@@ -7,7 +7,7 @@ import { taskMovingValidation } from "../../utils";
 const useDragUpdate = () => {
   const [isDisablePlace, setIsDisablePlace] = useState(false);
 
-  const onDragUpdate = ({ source, destination }: DragUpdate) => {
+  const onDragUpdate = useCallback(({ source, destination }: DragUpdate) => {
     if (!destination) {
       return setIsDisablePlace(false);
     }
@@ -22,7 +22,7 @@ const useDragUpdate = () => {
     }
 
     return setIsDisablePlace(false);
-  };
+  }, []);
 
   return {
     onDragUpdate,

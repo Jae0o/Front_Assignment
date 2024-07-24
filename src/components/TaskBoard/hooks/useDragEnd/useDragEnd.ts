@@ -70,7 +70,7 @@ const useDragEnd = ({
         newItems[destinationId].splice(destination.index, 0, removed);
       }
 
-      if (selectedTasks.length > 0) {
+      if (selectedTasks.length > 0 && sourceId !== destinationId) {
         const removeItems: TaskItemType[] = [];
         const filteredItems: TaskItemType[] = [];
 
@@ -85,6 +85,43 @@ const useDragEnd = ({
 
         newItems[sourceId] = filteredItems;
         newItems[destinationId].splice(destination.index, 0, ...removeItems);
+      }
+
+      if (selectedTasks.length > 0 && sourceId === destinationId) {
+        const removeItems: TaskItemType[] = [];
+        const filteredItems: TaskItemType[] = [];
+
+        let index = destination.index;
+
+        while (index >= 0) {
+          if (!selectedTasks.includes(newItems[sourceId][index].id)) {
+            break;
+          }
+
+          index--;
+        }
+
+        newItems[sourceId].forEach((item) => {
+          if (selectedTasks.includes(item.id)) {
+            removeItems.push(item);
+            return;
+          }
+
+          filteredItems.push(item);
+        });
+
+        if (index <= 0) {
+          newItems[destinationId] = [...removeItems, ...filteredItems];
+        }
+
+        if (index > 0) {
+          const endIndex = filteredItems.findIndex(
+            ({ id }) => id === newItems[sourceId][index].id
+          );
+
+          filteredItems.splice(endIndex + 1, 0, ...removeItems);
+          newItems[destinationId] = filteredItems;
+        }
       }
 
       setSelectedTasks([]);
