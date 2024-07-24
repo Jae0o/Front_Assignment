@@ -21,20 +21,72 @@ const useDragEnd = ({
   setSelectedTasks,
 }: UseDragEndProps) => {
   // TODO : 추후 별도 유틸로 분리 고려하기
-  const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback(
-    (status) => {
-      if (
-        status !== "NO_STATUS" &&
-        status !== "TODO" &&
-        status !== "IN_PROGRESS" &&
-        status !== "DONE"
-      ) {
-        return false;
+  const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback((status) => {
+    if (
+      status !== "NO_STATUS" &&
+      status !== "TODO" &&
+      status !== "IN_PROGRESS" &&
+      status !== "DONE"
+    ) {
+      return false;
+    }
+
+    return status;
+  }, []);
+
+  const moveMultiTasks = useCallback(
+    ({
+      sourceId,
+      destinationId,
+      newItems,
+      destinationIndex,
+    }: {
+      sourceId: TaskStatusType;
+      destinationId: TaskStatusType;
+      newItems: TaskItemListType;
+      destinationIndex: number;
+    }) => {
+      const removeItems: TaskItemType[] = [];
+      const filteredItems: TaskItemType[] = [];
+
+      newItems[sourceId].forEach((item) => {
+        if (selectedTasks.includes(item.id)) {
+          removeItems.push(item);
+          return;
+        }
+
+        filteredItems.push(item);
+      });
+
+      if (sourceId !== destinationId) {
+        newItems[sourceId] = filteredItems;
+        newItems[destinationId].splice(destinationIndex, 0, ...removeItems);
       }
 
-      return status;
+      if (sourceId === destinationId) {
+        let index = destinationIndex;
+
+        while (index >= 0) {
+          if (!selectedTasks.includes(newItems[sourceId][index].id)) {
+            break;
+          }
+
+          index--;
+        }
+
+        if (index <= 0) {
+          newItems[destinationId] = [...removeItems, ...filteredItems];
+        }
+
+        if (index > 0) {
+          const endIndex = filteredItems.findIndex(({ id }) => id === newItems[sourceId][index].id);
+
+          filteredItems.splice(endIndex + 1, 0, ...removeItems);
+          newItems[destinationId] = filteredItems;
+        }
+      }
     },
-    []
+    [selectedTasks]
   );
 
   const onDragEnd = useCallback(
@@ -70,58 +122,13 @@ const useDragEnd = ({
         newItems[destinationId].splice(destination.index, 0, removed);
       }
 
-      if (selectedTasks.length > 0 && sourceId !== destinationId) {
-        const removeItems: TaskItemType[] = [];
-        const filteredItems: TaskItemType[] = [];
-
-        newItems[sourceId].forEach((item) => {
-          if (selectedTasks.includes(item.id)) {
-            removeItems.push(item);
-            return;
-          }
-
-          filteredItems.push(item);
+      if (selectedTasks.length > 0) {
+        moveMultiTasks({
+          sourceId,
+          destinationId,
+          newItems,
+          destinationIndex: destination.index,
         });
-
-        newItems[sourceId] = filteredItems;
-        newItems[destinationId].splice(destination.index, 0, ...removeItems);
-      }
-
-      if (selectedTasks.length > 0 && sourceId === destinationId) {
-        const removeItems: TaskItemType[] = [];
-        const filteredItems: TaskItemType[] = [];
-
-        let index = destination.index;
-
-        while (index >= 0) {
-          if (!selectedTasks.includes(newItems[sourceId][index].id)) {
-            break;
-          }
-
-          index--;
-        }
-
-        newItems[sourceId].forEach((item) => {
-          if (selectedTasks.includes(item.id)) {
-            removeItems.push(item);
-            return;
-          }
-
-          filteredItems.push(item);
-        });
-
-        if (index <= 0) {
-          newItems[destinationId] = [...removeItems, ...filteredItems];
-        }
-
-        if (index > 0) {
-          const endIndex = filteredItems.findIndex(
-            ({ id }) => id === newItems[sourceId][index].id
-          );
-
-          filteredItems.splice(endIndex + 1, 0, ...removeItems);
-          newItems[destinationId] = filteredItems;
-        }
       }
 
       setSelectedTasks([]);
