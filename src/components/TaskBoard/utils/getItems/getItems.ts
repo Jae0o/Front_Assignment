@@ -6,7 +6,6 @@ const getItems: GetItems = (count) =>
   Array.from({ length: count }, (v, k) => k).map((k) => ({
     id: `item-${k}`,
     content: `item ${k}`,
-    status: "NO_STATUS",
   }));
 
 export default getItems;
