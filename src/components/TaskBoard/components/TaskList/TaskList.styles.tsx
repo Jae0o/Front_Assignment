@@ -14,12 +14,7 @@ export const TaskListLayout = styled.li<{
   flex-direction: column;
 
   padding: ${({ theme }) => theme.padding.grid}rem;
-  background-color: ${({
-    $isDraggingOver,
-    $isDropDisabled,
-    theme,
-    $status,
-  }) => {
+  background-color: ${({ $isDraggingOver, $isDropDisabled, theme, $status }) => {
     if ($isDraggingOver && $isDropDisabled) {
       return "red";
     }

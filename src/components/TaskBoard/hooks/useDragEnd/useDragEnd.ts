@@ -104,12 +104,7 @@ const useDragEnd = ({
         return;
       }
 
-      if (
-        taskMovingValidation({
-          start: sourceId,
-          end: destinationId,
-        })
-      ) {
+      if (taskMovingValidation({ start: sourceId, end: destinationId })) {
         // TODO : 추후 알림 추가
         console.log("이동할 수 없습니다.");
         return;

@@ -36,9 +36,7 @@ const TaskItem = ({
           ref={itemProvided.innerRef}
           className="task_item"
           onClick={() => onClick({ itemId: item.id, status, isSelected })}
-          style={{
-            ...itemProvided.draggableProps.style,
-          }}
+          style={{ ...itemProvided.draggableProps.style }}
           $isDragging={snapshot.isDragging}
           $isSelected={isSelected}
           $isDisablePlace={isDisablePlace}

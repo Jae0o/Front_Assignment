@@ -1,4 +1,4 @@
-import { OnClickItem, TaskStatusType } from "@/types";
+import { OnClickItem } from "@/types";
 import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface UseOnClickProps {
@@ -17,9 +17,7 @@ const useOnClick = ({
   const onClick: OnClickItem = useCallback(
     ({ itemId, status, isSelected }) => {
       if (isSelected) {
-        setSelectedTasks((prevTasks) =>
-          prevTasks.filter((id) => id !== itemId)
-        );
+        setSelectedTasks((prevTasks) => prevTasks.filter((id) => id !== itemId));
         return;
       }
 
