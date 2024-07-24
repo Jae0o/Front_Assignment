@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const TaskItem = styled.li<{
   $isDragging: boolean;
+  $isDisablePlace: boolean;
   $isSelected: boolean;
 }>`
   width: 100%;
@@ -16,7 +17,9 @@ export const TaskItem = styled.li<{
 
   background-color: white;
 
-  border: 0.2rem solid gray;
+  border: 0.2rem solid
+    ${({ theme, $isDragging, $isDisablePlace }) =>
+      $isDragging && $isDisablePlace && "red"};
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
   background-color: ${({ $isSelected }) => $isSelected && "red"};
 `;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import * as S from "./TaskBoard.styles";
 
@@ -6,7 +6,7 @@ import { DragDropContext, DragStart } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
 import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
-import { useDragEnd, useOnClick } from "./hooks";
+import { useDragEnd, useDragUpdate, useOnClick } from "./hooks";
 import { getItems } from "./utils";
 
 export const TASK_STATUS: TaskStatusType[] = [
@@ -26,6 +26,7 @@ const TaskBoard = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTasks, setSelectedTasks] = useState<TaskItemType[]>([]);
 
+  const { isDisablePlace, onDragUpdate } = useDragUpdate();
   const onDragEnd = useDragEnd({ items, setItems });
   const onClick = useOnClick({
     selectedStatus,
@@ -44,7 +45,11 @@ const TaskBoard = () => {
 
   return (
     <S.TaskBoardLayout>
-      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+      <DragDropContext
+        onDragEnd={onDragEnd}
+        onDragStart={onDragStart}
+        onDragUpdate={onDragUpdate}
+      >
         {TASK_STATUS.map((status) => (
           <TaskList
             items={items[status]}
@@ -52,6 +57,7 @@ const TaskBoard = () => {
             key={status}
             status={status}
             selectedStatus={selectedStatus}
+            isDisablePlace={isDisablePlace}
             onClick={onClick}
           />
         ))}

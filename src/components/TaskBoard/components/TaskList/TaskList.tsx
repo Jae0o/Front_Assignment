@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as S from "./TaskList.styles";
 
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 import { TaskItemType, TaskStatusType } from "@/types";
 import { STATUS_NAMES } from "../../TaskBoard.constants";
@@ -14,6 +14,7 @@ interface TaskListProps {
 
   status: TaskStatusType;
   selectedStatus: string;
+  isDisablePlace: boolean;
 
   onClick: (params: { item: TaskItemType; status: TaskStatusType }) => void;
 }
@@ -23,6 +24,7 @@ const TaskList = ({
   selectedTasks,
   status,
   selectedStatus,
+  isDisablePlace,
   onClick,
 }: TaskListProps) => {
   const isDropDisabled = useMemo(
@@ -50,6 +52,7 @@ const TaskList = ({
                 item={item}
                 status={status}
                 selectedTasks={selectedTasks}
+                isDisablePlace={isDisablePlace}
                 onClick={onClick}
               />
             ))}
