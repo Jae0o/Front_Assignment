@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import * as S from "./ToastProvider.styles";
 
 interface ToastProviderProps {
@@ -11,6 +11,10 @@ interface ToastItemType {
 }
 
 const DELETE_TIME = 3000;
+
+export const toastContext = createContext({
+  createToast: (message: string) => {},
+});
 
 const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toastList, setToastList] = useState<ToastItemType[]>([]);
@@ -31,10 +35,10 @@ const ToastProvider = ({ children }: ToastProviderProps) => {
   );
 
   return (
-    <>
+    <toastContext.Provider value={{ createToast }}>
       {children}
-      <S.ToastContainer></S.ToastContainer>
-    </>
+      <S.ToastContainer>{toastList.map(({ message }) => message)}</S.ToastContainer>
+    </toastContext.Provider>
   );
 };
 
