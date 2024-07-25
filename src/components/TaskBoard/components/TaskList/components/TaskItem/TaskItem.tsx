@@ -28,7 +28,11 @@ const TaskItem = ({
   );
 
   return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
+    <Draggable
+      key={item.id}
+      draggableId={item.id}
+      index={index}
+    >
       {(itemProvided, snapshot) => (
         <S.TaskItem
           {...itemProvided.draggableProps}

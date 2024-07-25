@@ -50,10 +50,6 @@ const getValidationMessage: TaskMovingValidation = ({ source, destination, items
       return false;
     }
 
-    console.log("source");
-    console.log(items[sourceId][sourceIndex], source.index);
-    console.log("des");
-    console.log(items[destinationId][destinationIndex], destination.index);
     return "짝수 아이템은 짝수 아이템앞으로 이동할 수 없습니다.";
   }
 
