@@ -34,9 +34,20 @@ const getValidationMessage: TaskMovingValidation = ({
   // if (start === "DONE" && end === "TODO") {
   //   return "4번에서 2번으로 이동은 불가능합니다.";
   // }
+  const hasEvenNumber = items[sourceId].find(({ id, number }) => {
+    if (selectedTasks.includes(id) && number % 2 === 0) {
+      return true;
+    }
+
+    return false;
+  });
 
   const destinationLength = items[destinationId].length;
-  if (items[sourceId][source.index].number % 2 === 0 && items[destinationId].length) {
+
+  if (
+    (items[sourceId][source.index].number % 2 === 0 || hasEvenNumber) &&
+    items[destinationId].length
+  ) {
     const sourceIndex = source.index;
     let destinationIndex = destination.index;
 
@@ -59,6 +70,10 @@ const getValidationMessage: TaskMovingValidation = ({
 
     if (destinationItem.number % 2 !== 0) {
       return false;
+    }
+
+    if (items[sourceId][source.index].number % 2 !== 0) {
+      return "선택 항목 내부 짝수 아이템은 짝수 아이템앞으로 이동할 수 없습니다.";
     }
 
     return "짝수 아이템은 짝수 아이템앞으로 이동할 수 없습니다.";
