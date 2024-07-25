@@ -6,10 +6,11 @@ import { getValidationMessage } from "../../utils";
 import { TaskItemListType } from "@/types";
 
 interface UseDragUpdateProps {
+  selectedTasks: string[];
   items: TaskItemListType;
 }
 
-const useDragUpdate = ({ items }: UseDragUpdateProps) => {
+const useDragUpdate = ({ items, selectedTasks }: UseDragUpdateProps) => {
   const [isDisablePlace, setIsDisablePlace] = useState(false);
 
   const onDragUpdate = useCallback(
@@ -18,11 +19,16 @@ const useDragUpdate = ({ items }: UseDragUpdateProps) => {
         return setIsDisablePlace(false);
       }
 
-      const hasValidationMessage = !!getValidationMessage({ source, destination, items });
+      const hasValidationMessage = !!getValidationMessage({
+        source,
+        destination,
+        items,
+        selectedTasks,
+      });
 
       return setIsDisablePlace(hasValidationMessage);
     },
-    [items]
+    [items, selectedTasks]
   );
 
   return {

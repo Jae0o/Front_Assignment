@@ -30,7 +30,7 @@ const TaskBoard = () => {
     setSelectedTasks,
   });
 
-  const { isDisablePlace, onDragUpdate } = useDragUpdate({ items });
+  const { isDisablePlace, onDragUpdate } = useDragUpdate({ items, selectedTasks });
 
   const onDragEnd = useDragEnd({
     items,

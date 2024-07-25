@@ -4,12 +4,18 @@ import getCheckedStatusType from "../getCheckedStatusType/getCheckedStatusType";
 import { TaskItemListType } from "@/types";
 
 type TaskMovingValidation = (params: {
+  selectedTasks: string[];
   source: DraggableLocation;
   destination: DraggableLocation;
   items: TaskItemListType;
 }) => string | false;
 
-const getValidationMessage: TaskMovingValidation = ({ source, destination, items }) => {
+const getValidationMessage: TaskMovingValidation = ({
+  source,
+  destination,
+  items,
+  selectedTasks,
+}) => {
   const sourceId = getCheckedStatusType(source.droppableId);
   const destinationId = getCheckedStatusType(destination.droppableId);
 
@@ -46,7 +52,12 @@ const getValidationMessage: TaskMovingValidation = ({ source, destination, items
       return false;
     }
 
-    if (items[destinationId][destinationIndex].number % 2 !== 0) {
+    const destinationItem = items[destinationId][destinationIndex];
+    if (selectedTasks.includes(destinationItem.id)) {
+      return false;
+    }
+
+    if (destinationItem.number % 2 !== 0) {
       return false;
     }
 

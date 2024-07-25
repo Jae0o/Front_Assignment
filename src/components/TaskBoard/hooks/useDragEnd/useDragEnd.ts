@@ -93,7 +93,7 @@ const useDragEnd = ({
         return;
       }
 
-      const validationMessage = getValidationMessage({ source, destination, items });
+      const validationMessage = getValidationMessage({ source, destination, items, selectedTasks });
 
       if (validationMessage) {
         createToast(validationMessage);
