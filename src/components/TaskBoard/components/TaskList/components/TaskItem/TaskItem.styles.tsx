@@ -18,7 +18,20 @@ export const TaskItem = styled.li<{
   background-color: white;
 
   border: 0.2rem solid
-    ${({ $isDragging, $isDisablePlace }) => $isDragging && $isDisablePlace && "red"};
+    ${({ $isDragging, $isDisablePlace, $isSelected, theme }) => {
+      if ($isDragging && $isDisablePlace) {
+        return theme.colors.red_700;
+      }
+
+      if ($isSelected && $isDisablePlace) {
+        return theme.colors.red_700;
+      }
+
+      if ($isSelected) {
+        return theme.colors.blue_500;
+      }
+
+      return theme.colors.gray_400;
+    }};
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
-  background-color: ${({ $isSelected }) => $isSelected && "red"};
 `;

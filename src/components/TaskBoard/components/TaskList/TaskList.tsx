@@ -37,7 +37,7 @@ const TaskList = ({
         <S.TaskListLayout
           $isDraggingOver={snapshot.isDraggingOver}
           $isDropDisabled={isDropDisabled}
-          $status={status}
+          $isDisablePlace={isDisablePlace}
         >
           <S.TaskListTitle>{STATUS_NAMES[status]}</S.TaskListTitle>
           <S.TaskListContainer
