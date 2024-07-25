@@ -20,21 +20,21 @@ export const TaskItem = styled.li<{
   filter: ${({ $disabled, $isSelected, $isDragging }) =>
     (($disabled && $isSelected) || $isDragging) && "brightness(85%)"};
 
-  border: 0.2rem solid
+  border: solid
     ${({ $isDragging, $isDisablePlace, $isSelected, theme }) => {
       if ($isDragging && $isDisablePlace) {
-        return theme.colors.red_700;
+        return `${theme.colors.red_700} 0.2rem`;
       }
 
       if ($isSelected && $isDisablePlace) {
-        return theme.colors.red_700;
+        return `${theme.colors.red_700} 0.2rem`;
       }
 
       if ($isSelected) {
-        return theme.colors.blue_500;
+        return `${theme.colors.blue_500} 0.2rem`;
       }
 
-      return theme.colors.gray_400;
+      return `${theme.colors.gray_400} 0.1rem`;
     }};
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
 `;

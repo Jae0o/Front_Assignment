@@ -18,23 +18,24 @@ export const TaskListLayout = styled.li<{
   border-radius: ${({ theme }) => theme.borderRadius.radius12};
   box-shadow: ${({ theme }) => theme.boxShadow.medium};
 
-  border: 0.2rem solid
+  border: solid
     ${({ theme, $isDraggingOver, $isDropDisabled, $isDisablePlace }) => {
       if ($isDraggingOver && $isDropDisabled) {
-        return theme.colors.red_700;
+        return `${theme.colors.red_700} 0.2rem`;
       }
 
       if ($isDraggingOver && $isDisablePlace) {
-        return theme.colors.red_700;
+        return `${theme.colors.red_700} 0.2rem`;
       }
 
       if ($isDraggingOver) {
-        return theme.colors.green_500;
+        return `${theme.colors.green_500} 0.2rem`;
       }
 
-      return theme.colors.gray_400;
+      return `${theme.colors.gray_400} 0.1rem`;
     }};
 
+  transition: border 0.3s;
   user-select: none;
 `;
 
