@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback } from "react";
 
 import { DropResult } from "react-beautiful-dnd";
 
-import { taskMovingValidation } from "../../utils";
+import { getCheckedStatusType, taskMovingValidation } from "../../utils";
 import { useToast } from "@/hooks";
 import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 
@@ -14,8 +14,6 @@ interface UseDragEndProps {
   setSelectedTasks: Dispatch<SetStateAction<string[]>>;
 }
 
-type GetCheckedStatusTypeFunc = (status: string) => TaskStatusType | false;
-
 const useDragEnd = ({
   items,
   setItems,
@@ -24,19 +22,6 @@ const useDragEnd = ({
   setSelectedTasks,
 }: UseDragEndProps) => {
   const createToast = useToast();
-
-  const getCheckedStatusType: GetCheckedStatusTypeFunc = useCallback((status) => {
-    if (
-      status !== "NO_STATUS" &&
-      status !== "TODO" &&
-      status !== "IN_PROGRESS" &&
-      status !== "DONE"
-    ) {
-      return false;
-    }
-
-    return status;
-  }, []);
 
   const moveMultiTasks = useCallback(
     ({
