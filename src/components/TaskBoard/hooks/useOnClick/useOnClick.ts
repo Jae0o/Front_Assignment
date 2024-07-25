@@ -27,14 +27,13 @@ const useOnClick = ({
         return;
       }
 
-      setSelectedStatus(status);
       setSelectedTasks((prevTasks) => [...prevTasks, itemId]);
     },
     [selectedStatus]
   );
 
   useEffect(() => {
-    const handleAwayClick = ({ target, type }: MouseEvent | TouchEvent) => {
+    const handleAwayClick = ({ target }: MouseEvent | TouchEvent) => {
       if (isDragging) {
         return;
       }
