@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const ToastItemLayout = styled.li`
-  width: 20rem;
+  width: 24rem;
   height: 8rem;
 
   position: relative;
