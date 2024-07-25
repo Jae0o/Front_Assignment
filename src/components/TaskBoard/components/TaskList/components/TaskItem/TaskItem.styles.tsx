@@ -15,7 +15,7 @@ export const TaskItem = styled.li<{
 
   font-size: 1.2rem;
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white_500};
 
   border: 0.2rem solid
     ${({ $isDragging, $isDisablePlace, $isSelected, theme }) => {

@@ -9,9 +9,9 @@ export const ToastItemLayout = styled.li`
   display: flex;
   flex-direction: column;
 
-  background-color: ${({ theme }) => theme.colors.white_100};
+  background-color: ${({ theme }) => theme.colors.white_500};
   border-radius: ${({ theme }) => theme.borderRadius.radius12};
-  box-shadow: ${({ theme }) => theme.boxShadow.basic};
+  box-shadow: ${({ theme }) => theme.boxShadow.small};
 
   overflow: hidden;
 `;
@@ -19,7 +19,8 @@ export const ToastItemLayout = styled.li`
 export const ToastItemContent = styled.p`
   width: 100%;
   flex-grow: 1;
-  padding: 0.6rem;
+  padding: 1rem;
+  padding-top: 2.4rem;
 
   font-size: 1.4rem;
 
@@ -39,11 +40,11 @@ export const CloseButton = styled.button`
 
 export const ProgressBarContainer = styled.div`
   width: 100%;
-  height: 1.5rem;
+  height: 1rem;
 
   position: relative;
 
-  background-color: ${({ theme }) => theme.colors.placeholder_300};
+  background-color: ${({ theme }) => theme.colors.white_300};
 `;
 
 const progressMove = keyframes`
@@ -60,7 +61,7 @@ export const ProgressBar = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: ${({ theme }) => theme.colors.yellow_500};
+  background-color: ${({ theme }) => theme.colors.red_700};
 
   translate: -100%;
 
