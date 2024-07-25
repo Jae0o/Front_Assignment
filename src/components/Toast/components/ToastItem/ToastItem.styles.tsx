@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 
 export const ToastItemLayout = styled.li`
   width: 24rem;
-  height: 8rem;
+  height: 7.5rem;
 
   position: relative;
 
@@ -40,7 +40,7 @@ export const CloseButton = styled.button`
 
 export const ProgressBarContainer = styled.div`
   width: 100%;
-  height: 1rem;
+  height: 0.6rem;
 
   position: relative;
 
@@ -61,7 +61,7 @@ export const ProgressBar = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: ${({ theme }) => theme.colors.red_700};
+  background-color: ${({ theme }) => theme.colors.red};
 
   translate: -100%;
 
