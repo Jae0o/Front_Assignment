@@ -13,7 +13,9 @@ const ToastItem = ({ message, onClick }: ToastItemProps) => {
       <S.CloseButton onClick={onClick}>
         <CloseIcon size={"2rem"} />
       </S.CloseButton>
+
       <S.ToastItemContent>{message}</S.ToastItemContent>
+
       <S.ProgressBarContainer>
         <S.ProgressBar />
       </S.ProgressBarContainer>

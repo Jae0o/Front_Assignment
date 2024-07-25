@@ -8,7 +8,6 @@ const GlobalStyles = createGlobalStyle`
     font-size: 62.5%;
 
     background-color: ${({ theme }) => theme.colors.background};
-    
   }
 
   li {

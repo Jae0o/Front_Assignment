@@ -1,9 +1,9 @@
+import { useMemo } from "react";
 import * as S from "./TaskItem.styles";
 
 import { Draggable } from "react-beautiful-dnd";
 
 import { OnClickItem, TaskItemType, TaskStatusType } from "@/types";
-import { useMemo } from "react";
 
 interface TaskItemProps {
   index: number;

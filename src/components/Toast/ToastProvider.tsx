@@ -1,5 +1,6 @@
 import { createContext, useCallback, useState } from "react";
 import * as S from "./ToastProvider.styles";
+
 import { ToastItem } from "./components";
 
 interface ToastProviderProps {

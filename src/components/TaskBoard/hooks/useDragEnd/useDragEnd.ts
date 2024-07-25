@@ -52,29 +52,28 @@ const useDragEnd = ({
       if (sourceId !== destinationId) {
         newItems[sourceId] = filteredItems;
         newItems[destinationId].splice(destinationIndex, 0, ...removeItems);
+        return;
       }
 
-      if (sourceId === destinationId) {
-        let index = destinationIndex;
+      let index = destinationIndex;
 
-        while (index >= 0) {
-          if (!selectedTasks.includes(newItems[sourceId][index].id)) {
-            break;
-          }
-
-          index--;
+      while (index >= 0) {
+        if (!selectedTasks.includes(newItems[sourceId][index].id)) {
+          break;
         }
 
-        if (index <= 0) {
-          newItems[destinationId] = [...removeItems, ...filteredItems];
-        }
+        index--;
+      }
 
-        if (index > 0) {
-          const endIndex = filteredItems.findIndex(({ id }) => id === newItems[sourceId][index].id);
+      if (index <= 0) {
+        newItems[destinationId] = [...removeItems, ...filteredItems];
+      }
 
-          filteredItems.splice(endIndex + 1, 0, ...removeItems);
-          newItems[destinationId] = filteredItems;
-        }
+      if (index > 0) {
+        const endIndex = filteredItems.findIndex(({ id }) => id === newItems[sourceId][index].id);
+
+        filteredItems.splice(endIndex + 1, 0, ...removeItems);
+        newItems[destinationId] = filteredItems;
       }
     },
     [selectedTasks]
