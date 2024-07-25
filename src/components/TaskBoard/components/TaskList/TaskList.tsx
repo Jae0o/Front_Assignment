@@ -5,7 +5,6 @@ import { Droppable } from "react-beautiful-dnd";
 
 import { OnClickItem, TaskItemType, TaskStatusType } from "@/types";
 import { STATUS_NAMES } from "../../TaskBoard.constants";
-import { taskMovingValidation } from "../../utils";
 import { TaskItem } from "./components";
 
 interface TaskListProps {
@@ -28,8 +27,8 @@ const TaskList = ({
   onClick,
 }: TaskListProps) => {
   const isDropDisabled = useMemo(
-    () => taskMovingValidation({ start: selectedStatus, end: status }),
-    [status, selectedStatus, taskMovingValidation]
+    () => selectedStatus === "NO_STATUS" && status === "IN_PROGRESS",
+    [status, selectedStatus]
   );
 
   return (

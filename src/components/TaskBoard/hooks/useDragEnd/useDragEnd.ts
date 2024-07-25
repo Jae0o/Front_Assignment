@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback } from "react";
 
 import { DropResult } from "react-beautiful-dnd";
 
-import { getCheckedStatusType, taskMovingValidation } from "../../utils";
+import { getCheckedStatusType, getValidationMessage } from "../../utils";
 import { useToast } from "@/hooks";
 import { TaskItemListType, TaskItemType, TaskStatusType } from "@/types";
 
@@ -93,8 +93,10 @@ const useDragEnd = ({
         return;
       }
 
-      if (taskMovingValidation({ start: sourceId, end: destinationId })) {
-        createToast("1번에서 3번으로 이동은 불가능합니다.");
+      const validationMessage = getValidationMessage({ source, destination, items });
+
+      if (validationMessage) {
+        createToast(validationMessage);
         setSelectedTasks([]);
         return;
       }
