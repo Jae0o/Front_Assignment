@@ -5,13 +5,13 @@ const taskMovingValidation: TaskMovingValidation = ({ start, end }) => {
     return true;
   }
 
-  if (start === "TODO" && end === "DONE") {
-    return true;
-  }
+  // if (start === "TODO" && end === "DONE") {
+  //   return true;
+  // }
 
-  if (start === "DONE" && end === "TODO") {
-    return true;
-  }
+  // if (start === "DONE" && end === "TODO") {
+  //   return true;
+  // }
 
   return false;
 };
