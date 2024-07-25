@@ -4,22 +4,15 @@ export const colors = {
   white_300: "#edf2f4",
   white_500: "#FFFFFF",
 
-  black_900: "#000000",
-
-  yellow_500: "#ffce54",
-
   blue_500: "#0073cf",
 
   green_500: "#a0d468",
 
   red_700: "#ed5565",
 
-  gray_500: "#e6e9ed",
   gray_400: "#ccd1d9",
 
   background: "#FFFFFF",
-
-  placeholder_300: "#DDDDE3",
 };
 
 export const fontWeight = {
