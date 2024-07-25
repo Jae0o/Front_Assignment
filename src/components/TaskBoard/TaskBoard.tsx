@@ -62,6 +62,7 @@ const TaskBoard = () => {
             status={status}
             selectedStatus={selectedStatus}
             isDisablePlace={isDisablePlace}
+            disabled={isDragging}
             onClick={onClick}
           />
         ))}

@@ -4,6 +4,7 @@ export const TaskItem = styled.li<{
   $isDragging: boolean;
   $isDisablePlace: boolean;
   $isSelected: boolean;
+  $disabled: boolean;
 }>`
   width: 100%;
   height: 4rem;
@@ -16,6 +17,8 @@ export const TaskItem = styled.li<{
   font-size: 1.2rem;
 
   background-color: ${({ theme }) => theme.colors.white_500};
+  filter: ${({ $disabled, $isSelected, $isDragging }) =>
+    (($disabled && $isSelected) || $isDragging) && "brightness(85%)"};
 
   border: 0.2rem solid
     ${({ $isDragging, $isDisablePlace, $isSelected, theme }) => {

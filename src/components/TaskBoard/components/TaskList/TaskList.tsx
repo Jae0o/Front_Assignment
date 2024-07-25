@@ -15,6 +15,7 @@ interface TaskListProps {
   selectedStatus: string;
   isDisablePlace: boolean;
 
+  disabled: boolean;
   onClick: OnClickItem;
 }
 
@@ -24,6 +25,7 @@ const TaskList = ({
   status,
   selectedStatus,
   isDisablePlace,
+  disabled,
   onClick,
 }: TaskListProps) => {
   const isDropDisabled = useMemo(
@@ -52,6 +54,7 @@ const TaskList = ({
                 status={status}
                 selectedTasks={selectedTasks}
                 isDisablePlace={isDisablePlace}
+                disabled={disabled}
                 onClick={onClick}
               />
             ))}

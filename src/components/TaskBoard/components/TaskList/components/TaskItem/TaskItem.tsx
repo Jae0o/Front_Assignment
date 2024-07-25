@@ -11,6 +11,7 @@ interface TaskItemProps {
   item: TaskItemType;
   selectedTasks: string[];
   isDisablePlace: boolean;
+  disabled: boolean;
   onClick: OnClickItem;
 }
 
@@ -20,6 +21,7 @@ const TaskItem = ({
   status,
   selectedTasks,
   isDisablePlace,
+  disabled,
   onClick,
 }: TaskItemProps) => {
   const isSelected = useMemo(
@@ -44,6 +46,7 @@ const TaskItem = ({
           $isDragging={snapshot.isDragging}
           $isSelected={isSelected}
           $isDisablePlace={isDisablePlace}
+          $disabled={disabled}
         >
           {item.content}
         </S.TaskItem>
