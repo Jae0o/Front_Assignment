@@ -1,14 +1,21 @@
 import { css, DefaultTheme } from "styled-components";
 
 export const colors = {
-  white_100: "#FFFFFF",
+  white_300: "#edf2f4",
+  white_500: "#FFFFFF",
 
   black_900: "#000000",
 
   yellow_500: "#ffce54",
 
-  gray: "#e6e9ed",
-  dark_gray: "#ccd1d9",
+  blue_500: "#0073cf",
+
+  green_500: "#a0d468",
+
+  red_700: "#ed5565",
+
+  gray_500: "#e6e9ed",
+  gray_400: "#ccd1d9",
 
   background: "#FFFFFF",
 
@@ -16,13 +23,6 @@ export const colors = {
 
   text_primary: "",
   text_secondary: "",
-};
-
-export const pointColors = {
-  NO_STATUS: "#e6e9ed",
-  TODO: "#0073cf",
-  IN_PROGRESS: "#ffce54",
-  DONE: "#a0d468",
 };
 
 export const fontWeight = {
@@ -55,7 +55,9 @@ export const padding = {
 };
 
 export const boxShadow = {
-  basic: "0 0 1.6rem 0.4rem rgba(0, 0, 0, 0.1)",
+  big: "0 0 1.6rem 0.4rem rgba(0, 0, 0, 0.1)",
+  medium: "0 0 0.8rem 0.2rem rgba(0, 0, 0, 0.1)",
+  small: "0 0 0.4rem 0.1rem rgba(0, 0, 0, 0.1)",
 };
 
 export type ColorsType = typeof colors;
@@ -63,7 +65,6 @@ export type FontWeight = typeof fontWeight;
 export type BorderRadius = typeof borderRadius;
 export type ScrollBarNone = typeof scrollBarNone;
 export type Padding = typeof padding;
-export type PointColors = typeof pointColors;
 export type BoxShadow = typeof boxShadow;
 
 const theme: DefaultTheme = {
@@ -72,7 +73,6 @@ const theme: DefaultTheme = {
   scrollBarNone,
   borderRadius,
   padding,
-  pointColors,
   boxShadow,
 };
 
