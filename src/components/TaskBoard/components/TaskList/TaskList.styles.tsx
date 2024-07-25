@@ -13,7 +13,7 @@ export const TaskListLayout = styled.li<{
   flex-direction: column;
 
   padding: ${({ theme }) => theme.padding.grid}rem;
-  background-color: ${({ theme }) => theme.colors.white_300};
+  background-color: ${({ theme }) => theme.colors.semi_white};
 
   border-radius: ${({ theme }) => theme.borderRadius.radius12};
   box-shadow: ${({ theme }) => theme.boxShadow.medium};
@@ -21,18 +21,18 @@ export const TaskListLayout = styled.li<{
   border: solid
     ${({ theme, $isDraggingOver, $isDropDisabled, $isDisablePlace }) => {
       if ($isDraggingOver && $isDropDisabled) {
-        return `${theme.colors.red_700} 0.2rem`;
+        return `${theme.colors.red} 0.2rem`;
       }
 
       if ($isDraggingOver && $isDisablePlace) {
-        return `${theme.colors.red_700} 0.2rem`;
+        return `${theme.colors.red} 0.2rem`;
       }
 
       if ($isDraggingOver) {
-        return `${theme.colors.green_500} 0.2rem`;
+        return `${theme.colors.green} 0.2rem`;
       }
 
-      return `${theme.colors.gray_400} 0.1rem`;
+      return `${theme.colors.gray} 0.1rem`;
     }};
 
   transition: border 0.3s;

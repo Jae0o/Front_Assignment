@@ -9,7 +9,7 @@ export const ToastItemLayout = styled.li`
   display: flex;
   flex-direction: column;
 
-  background-color: ${({ theme }) => theme.colors.white_500};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.radius12};
   box-shadow: ${({ theme }) => theme.boxShadow.small};
 
@@ -44,7 +44,7 @@ export const ProgressBarContainer = styled.div`
 
   position: relative;
 
-  background-color: ${({ theme }) => theme.colors.white_300};
+  background-color: ${({ theme }) => theme.colors.semi_white};
 `;
 
 const progressMove = keyframes`

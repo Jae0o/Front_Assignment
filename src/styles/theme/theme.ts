@@ -1,16 +1,16 @@
 import { css, DefaultTheme } from "styled-components";
 
 export const colors = {
-  white_300: "#edf2f4",
-  white_500: "#FFFFFF",
+  semi_white: "#edf2f4",
+  white: "#FFFFFF",
 
-  blue_500: "#0073cf",
+  blue: "#0073cf",
 
-  green_500: "#a0d468",
+  green: "#a0d468",
 
-  red_700: "#ed5565",
+  red: "#ed5565",
 
-  gray_400: "#ccd1d9",
+  gray: "#ccd1d9",
 
   background: "#FFFFFF",
 };
@@ -44,8 +44,8 @@ export const padding = {
 };
 
 export const boxShadow = {
-  medium: "0 0 0.8rem 0.2rem rgba(0, 0, 0, 0.1)",
-  small: "0 0 0.4rem 0.1rem rgba(0, 0, 0, 0.1)",
+  medium: "0 0 0.8rem 0.2rem rgba(0, 0, 0, 0.05)",
+  small: "0 0 0.4rem 0.1rem rgba(0, 0, 0, 0.05)",
 };
 
 export type ColorsType = typeof colors;

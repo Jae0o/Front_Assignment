@@ -16,25 +16,25 @@ export const TaskItem = styled.li<{
 
   font-size: 1.2rem;
 
-  background-color: ${({ theme }) => theme.colors.white_500};
+  background-color: ${({ theme }) => theme.colors.white};
   filter: ${({ $disabled, $isSelected, $isDragging }) =>
     (($disabled && $isSelected) || $isDragging) && "brightness(85%)"};
 
   border: solid
     ${({ $isDragging, $isDisablePlace, $isSelected, theme }) => {
       if ($isDragging && $isDisablePlace) {
-        return `${theme.colors.red_700} 0.2rem`;
+        return `${theme.colors.red} 0.2rem`;
       }
 
       if ($isSelected && $isDisablePlace) {
-        return `${theme.colors.red_700} 0.2rem`;
+        return `${theme.colors.red} 0.2rem`;
       }
 
       if ($isSelected) {
-        return `${theme.colors.blue_500} 0.2rem`;
+        return `${theme.colors.blue} 0.2rem`;
       }
 
-      return `${theme.colors.gray_400} 0.1rem`;
+      return `${theme.colors.gray} 0.1rem`;
     }};
   border-radius: ${({ theme }) => theme.borderRadius.radius8};
 `;
