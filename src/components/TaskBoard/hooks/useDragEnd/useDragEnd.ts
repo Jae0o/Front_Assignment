@@ -25,17 +25,19 @@ const useDragEnd = ({
 }: UseDragEndProps) => {
   const createToast = useToast();
 
-  const moveMultiTasks = useCallback(
+  const moveTasks = useCallback(
     ({
       sourceId,
       destinationId,
       newItems,
       destinationIndex,
+      sourceIndex,
     }: {
       sourceId: TaskStatusType;
       destinationId: TaskStatusType;
       newItems: TaskItemListType;
       destinationIndex: number;
+      sourceIndex: number;
     }) => {
       const removeItems: TaskItemType[] = [];
       const filteredItems: TaskItemType[] = [];
@@ -72,7 +74,14 @@ const useDragEnd = ({
       if (index > 0) {
         const endIndex = filteredItems.findIndex(({ id }) => id === newItems[sourceId][index].id);
 
-        filteredItems.splice(endIndex + 1, 0, ...removeItems);
+        if (sourceIndex < destinationIndex) {
+          filteredItems.splice(endIndex + 1, 0, ...removeItems);
+        }
+
+        if (sourceIndex > destinationIndex) {
+          filteredItems.splice(endIndex, 0, ...removeItems);
+        }
+
         newItems[destinationId] = filteredItems;
       }
     },
@@ -105,19 +114,13 @@ const useDragEnd = ({
 
       const newItems: TaskItemListType = JSON.parse(JSON.stringify(items));
 
-      if (selectedTasks.length === 0) {
-        const [removed] = newItems[sourceId].splice(source.index, 1);
-        newItems[destinationId].splice(destination.index, 0, removed);
-      }
-
-      if (selectedTasks.length > 0) {
-        moveMultiTasks({
-          sourceId,
-          destinationId,
-          newItems,
-          destinationIndex: destination.index,
-        });
-      }
+      moveTasks({
+        sourceId,
+        destinationId,
+        newItems,
+        destinationIndex: destination.index,
+        sourceIndex: source.index,
+      });
 
       setSelectedTasks([]);
       setItems(newItems);
