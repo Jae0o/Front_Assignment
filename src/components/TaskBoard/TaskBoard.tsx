@@ -21,6 +21,7 @@ const TaskBoard = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isDisablePlace, setIsDisablePlace] = useState(false);
 
   const onDragStart = useDragStart({
     selectedStatus,
@@ -30,7 +31,7 @@ const TaskBoard = () => {
     setSelectedTasks,
   });
 
-  const { isDisablePlace, onDragUpdate } = useDragUpdate({ items, selectedTasks });
+  const { onDragUpdate } = useDragUpdate({ items, selectedTasks, setIsDisablePlace });
 
   const onDragEnd = useDragEnd({
     items,
@@ -38,6 +39,7 @@ const TaskBoard = () => {
     selectedTasks,
     setIsDragging,
     setSelectedTasks,
+    setIsDisablePlace,
   });
 
   const onClick = useOnClick({

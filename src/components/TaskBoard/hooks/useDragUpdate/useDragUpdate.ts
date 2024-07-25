@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 import { DragUpdate } from "react-beautiful-dnd";
 
@@ -8,11 +8,10 @@ import { TaskItemListType } from "@/types";
 interface UseDragUpdateProps {
   selectedTasks: string[];
   items: TaskItemListType;
+  setIsDisablePlace: Dispatch<SetStateAction<boolean>>;
 }
 
-const useDragUpdate = ({ items, selectedTasks }: UseDragUpdateProps) => {
-  const [isDisablePlace, setIsDisablePlace] = useState(false);
-
+const useDragUpdate = ({ items, selectedTasks, setIsDisablePlace }: UseDragUpdateProps) => {
   const onDragUpdate = useCallback(
     ({ source, destination }: DragUpdate) => {
       if (!destination) {
@@ -33,7 +32,6 @@ const useDragUpdate = ({ items, selectedTasks }: UseDragUpdateProps) => {
 
   return {
     onDragUpdate,
-    isDisablePlace,
   };
 };
 

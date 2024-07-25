@@ -12,6 +12,7 @@ interface UseDragEndProps {
   setItems: Dispatch<SetStateAction<TaskItemListType>>;
   setIsDragging: Dispatch<SetStateAction<boolean>>;
   setSelectedTasks: Dispatch<SetStateAction<string[]>>;
+  setIsDisablePlace: Dispatch<SetStateAction<boolean>>;
 }
 
 const useDragEnd = ({
@@ -20,6 +21,7 @@ const useDragEnd = ({
   selectedTasks,
   setIsDragging,
   setSelectedTasks,
+  setIsDisablePlace,
 }: UseDragEndProps) => {
   const createToast = useToast();
 
@@ -81,6 +83,7 @@ const useDragEnd = ({
   const onDragEnd = useCallback(
     ({ destination, source }: DropResult) => {
       setIsDragging(false);
+      setIsDisablePlace(false);
 
       if (!destination) {
         return;
