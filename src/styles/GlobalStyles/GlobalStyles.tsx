@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-  html, body, ul, li, button {
+  html, body, ul, li, button, p, div {
     padding: 0;
     margin: 0;
 

@@ -20,9 +20,6 @@ export const colors = {
   background: "#FFFFFF",
 
   placeholder_300: "#DDDDE3",
-
-  text_primary: "",
-  text_secondary: "",
 };
 
 export const fontWeight = {
@@ -38,7 +35,6 @@ export const borderRadius = {
   radius8: "0.8rem",
   radius12: "1.2rem",
   radius16: "1.6rem",
-  circle: "9999rem",
 };
 
 export const scrollBarNone = css`
@@ -55,7 +51,6 @@ export const padding = {
 };
 
 export const boxShadow = {
-  big: "0 0 1.6rem 0.4rem rgba(0, 0, 0, 0.1)",
   medium: "0 0 0.8rem 0.2rem rgba(0, 0, 0, 0.1)",
   small: "0 0 0.4rem 0.1rem rgba(0, 0, 0, 0.1)",
 };
