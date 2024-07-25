@@ -22,7 +22,7 @@ const useDragStart = ({
       setIsDragging(true);
 
       if (selectedStatus !== source.droppableId) {
-        setSelectedTasks([]);
+        setSelectedTasks([draggableId]);
         setSelectedStatus(source.droppableId);
         return;
       }
