@@ -34,7 +34,7 @@ const useOnClick = ({
   );
 
   useEffect(() => {
-    const handleAwayClick = ({ target }: MouseEvent) => {
+    const handleAwayClick = ({ target, type }: MouseEvent | TouchEvent) => {
       if (isDragging) {
         return;
       }
@@ -52,9 +52,11 @@ const useOnClick = ({
     };
 
     window.addEventListener("click", handleAwayClick);
+    window.addEventListener("touchstart", handleAwayClick);
 
     return () => {
       window.removeEventListener("click", handleAwayClick);
+      window.removeEventListener("touchstart", handleAwayClick);
     };
   }, [isDragging]);
 
