@@ -3,15 +3,14 @@ import * as S from "./TaskList.styles";
 
 import { Droppable } from "react-beautiful-dnd";
 
-import { OnClickItem, TaskItemType, TaskStatusType } from "@/types";
-import { STATUS_NAMES } from "../../TaskBoard.constants";
+import { OnClickItem, TaskItemType, TaskStatusItemType } from "@/types";
 import { TaskItem } from "./components";
 
 interface TaskListProps {
   items: TaskItemType[];
   selectedTasks: string[];
 
-  status: TaskStatusType;
+  status: TaskStatusItemType;
   selectedStatus: string;
   isDisablePlace: boolean;
 
@@ -28,20 +27,22 @@ const TaskList = ({
   disabled,
   onClick,
 }: TaskListProps) => {
+  const { type: statusType, title } = status;
+
   const isDropDisabled = useMemo(
-    () => selectedStatus === "NO_STATUS" && status === "IN_PROGRESS",
+    () => selectedStatus === "NO_STATUS" && statusType === "IN_PROGRESS",
     [status, selectedStatus]
   );
 
   return (
-    <Droppable droppableId={status}>
+    <Droppable droppableId={statusType}>
       {(provided, snapshot) => (
         <S.TaskListLayout
           $isDraggingOver={snapshot.isDraggingOver}
           $isDropDisabled={isDropDisabled}
           $isDisablePlace={isDisablePlace}
         >
-          <S.TaskListTitle>{STATUS_NAMES[status]}</S.TaskListTitle>
+          <S.TaskListTitle>{title}</S.TaskListTitle>
           <S.TaskListContainer
             {...provided.droppableProps}
             ref={provided.innerRef}
@@ -51,7 +52,7 @@ const TaskList = ({
                 key={item.id}
                 index={index}
                 item={item}
-                status={status}
+                status={statusType}
                 selectedTasks={selectedTasks}
                 isDisablePlace={isDisablePlace}
                 disabled={disabled}

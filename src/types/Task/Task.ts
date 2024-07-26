@@ -1,5 +1,10 @@
 export type TaskStatusType = "NO_STATUS" | "TODO" | "IN_PROGRESS" | "DONE";
 
+export interface TaskStatusItemType {
+  type: TaskStatusType;
+  title: string;
+}
+
 export interface TaskItemType {
   id: string;
   content: string;

@@ -5,11 +5,16 @@ import * as S from "./TaskBoard.styles";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import { TaskList } from "./components";
-import { TaskItemListType, TaskStatusType } from "@/types";
+import { TaskItemListType, TaskStatusItemType } from "@/types";
 import { useDragEnd, useDragStart, useDragUpdate, useOnClick } from "./hooks";
 import { getItems } from "./utils";
 
-export const TASK_STATUS: TaskStatusType[] = ["NO_STATUS", "TODO", "IN_PROGRESS", "DONE"];
+export const TASK_STATUS: TaskStatusItemType[] = [
+  { type: "NO_STATUS", title: "1. No Status" },
+  { type: "TODO", title: "2. ToDo" },
+  { type: "IN_PROGRESS", title: "3. In Progress" },
+  { type: "DONE", title: "4. Done" },
+];
 
 const TaskBoard = () => {
   const [items, setItems] = useState<TaskItemListType>({
@@ -58,9 +63,9 @@ const TaskBoard = () => {
       >
         {TASK_STATUS.map((status) => (
           <TaskList
-            items={items[status]}
+            items={items[status.type]}
             selectedTasks={selectedTasks}
-            key={status}
+            key={status.type}
             status={status}
             selectedStatus={selectedStatus}
             isDisablePlace={isDisablePlace}
