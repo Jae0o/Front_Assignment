@@ -3,6 +3,9 @@ import * as S from "./ToastProvider.styles";
 
 import { ToastItem } from "./components";
 
+interface ToastContextType {
+  createToast: (message: string) => void;
+}
 interface ToastProviderProps {
   children: React.ReactNode;
 }
@@ -14,8 +17,8 @@ interface ToastItemType {
 
 const DELETE_TIME = 3000;
 
-export const toastContext = createContext({
-  createToast: (message: string) => {},
+export const toastContext = createContext<ToastContextType>({
+  createToast: () => {},
 });
 
 const ToastProvider = ({ children }: ToastProviderProps) => {
