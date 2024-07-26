@@ -24,15 +24,17 @@ const TaskItem = ({
   disabled,
   onClick,
 }: TaskItemProps) => {
+  const { id, content } = item;
+
   const isSelected = useMemo(
-    () => !!selectedTasks.find((id) => id === item.id),
-    [item.id, selectedTasks]
+    () => !!selectedTasks.find((selectedId) => selectedId === id),
+    [id, selectedTasks]
   );
 
   return (
     <Draggable
-      key={item.id}
-      draggableId={item.id}
+      key={id}
+      draggableId={id}
       index={index}
     >
       {(itemProvided, snapshot) => (
@@ -41,14 +43,14 @@ const TaskItem = ({
           {...itemProvided.dragHandleProps}
           ref={itemProvided.innerRef}
           className="task_item"
-          onClick={() => onClick({ itemId: item.id, status, isSelected })}
+          onClick={() => onClick({ itemId: id, status, isSelected })}
           style={{ ...itemProvided.draggableProps.style }}
           $isDragging={snapshot.isDragging}
           $isSelected={isSelected}
           $isDisablePlace={isDisablePlace}
           $disabled={disabled}
         >
-          {item.content}
+          {content}
         </S.TaskItem>
       )}
     </Draggable>
